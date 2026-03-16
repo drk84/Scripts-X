@@ -29,6 +29,7 @@ if <tag0.combat.flags>&<def0.combat_ParryPenalty>
 else
     tag0.combat.parryPenalty = <local.effect>
 endif
+
 ON=@EffectAdd
 tag0.combat.flags |= <def0.combat_ParryPenalty>
 argo.morey = <tag0.combat.parryPenalty>

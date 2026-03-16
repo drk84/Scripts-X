@@ -1,0 +1,358 @@
+[ITEMDEF 010b7]
+// burning tree
+DEFNAME=i_burning_tree
+TYPE=t_tree
+
+[ITEMDEF 010de]
+// burning tree
+DEFNAME=i_burning_tree_2
+TYPE=t_tree
+
+[ITEMDEF 010df]
+// burning tree
+DEFNAME=i_burning_tree_3
+TYPE=t_tree
+
+[ITEMDEF 010e0]
+// burning tree
+DEFNAME=i_burning_tree_4
+TYPE=t_tree
+
+[ITEMDEF 010ea]
+// burning tree
+DEFNAME=i_burning_tree_5
+TYPE=t_tree
+
+[ITEMDEF 010eb]
+// burning tree
+DEFNAME=i_burning_tree_6
+TYPE=t_tree
+
+[ITEMDEF 010ec]
+// burning tree
+DEFNAME=i_burning_tree_7
+TYPE=t_tree
+
+[ITEMDEF 010ed]
+// burning tree
+DEFNAME=i_burning_tree_8
+TYPE=t_tree
+
+[ITEMDEF 0113f]
+// burning tree
+DEFNAME=i_burning_tree_9
+TYPE=t_tree
+
+[ITEMDEF 01150]
+// burning tree
+DEFNAME=i_burning_tree_10
+TYPE=t_tree
+
+[ITEMDEF 01151]
+// burning tree
+DEFNAME=i_burning_tree_11
+TYPE=t_tree
+
+[ITEMDEF 0175c]
+// tree
+DEFNAME=i_custom_tree
+TYPE=t_tree
+
+[ITEMDEF 0176c]
+// tree
+DEFNAME=i_custom_tree_2
+TYPE=t_tree
+
+[ITEMDEF 02fd9]
+// tree
+DEFNAME=i_custom_tree_3
+TYPE=t_tree
+
+[ITEMDEF 02fda]
+// tree
+DEFNAME=i_custom_tree_4
+TYPE=t_tree
+
+[ITEMDEF 02fdb]
+// tree
+DEFNAME=i_custom_tree_5
+TYPE=t_tree
+
+[ITEMDEF 02fe9]
+// tree
+DEFNAME=i_custom_tree_6
+TYPE=t_tree
+
+[ITEMDEF 02fee]
+// tree
+DEFNAME=i_custom_tree_7
+TYPE=t_tree
+
+[ITEMDEF 03142]
+// tree
+DEFNAME=i_custom_tree_8
+TYPE=t_tree
+
+[ITEMDEF 03144]
+// tree
+DEFNAME=i_custom_tree_9
+TYPE=t_tree
+
+[ITEMDEF 031bb]
+// tree
+DEFNAME=i_custom_tree_10
+TYPE=t_tree
+VALUE=1
+
+
+[ITEMDEF 031bc]
+// tree
+DEFNAME=i_custom_tree_11
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031bd]
+// tree
+DEFNAME=i_custom_tree_12
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031be]
+// tree
+DEFNAME=i_custom_tree_13
+TYPE=t_tree
+VALUE=1
+
+
+[ITEMDEF 031bf]
+
+DEFNAME=i_custom_foliage
+TYPE=t_foliage
+VALUE=1
+
+
+
+[ITEMDEF 031c0]
+// tree
+DEFNAME=i_custom_tree_14
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031c1]
+DEFNAME=i_custom_foliage_2
+TYPE=t_foliage
+VALUE=1
+
+
+
+[ITEMDEF 031c2]
+// tree
+DEFNAME=i_custom_tree_15
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031c3]
+DEFNAME=i_custom_foliage_3
+TYPE=t_foliage
+VALUE=1
+
+
+
+[ITEMDEF 031c4]
+// tree
+DEFNAME=i_custom_tree_16
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031c5]
+DEFNAME=i_custom_foliage_4
+TYPE=t_foliage
+VALUE=1
+
+
+
+[ITEMDEF 031c6]
+// tree
+DEFNAME=i_custom_tree_17
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031c7]
+DEFNAME=i_custom_foliage_5
+TYPE=t_foliage
+VALUE=1
+
+
+
+[ITEMDEF 031c8]
+// tree
+DEFNAME=i_custom_tree_18
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031c9]
+DEFNAME=i_custom_foliage_6
+TYPE=t_foliage
+VALUE=1
+
+
+
+[ITEMDEF 031ca]
+// tree
+DEFNAME=i_custom_tree_19
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031cb]
+DEFNAME=i_custom_foliage_7
+TYPE=t_foliage
+VALUE=1
+
+
+
+[ITEMDEF 031cc]
+// tree
+DEFNAME=i_custom_large_tree_p1
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031cd]
+// tree
+DEFNAME=i_custom_large_tree_p2
+TYPE=t_tree
+VALUE=1
+
+
+[ITEMDEF 031ce]
+// tree
+DEFNAME=i_custom_large_tree_p3
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031cf]
+// tree
+DEFNAME=i_custom_large_tree_p4
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031d0]
+DEFNAME=i_custom_large_foliage_p1
+TYPE=t_foliage
+VALUE=1
+
+
+
+[ITEMDEF 031d1]
+DEFNAME=i_custom_large_foliage_p2
+TYPE=t_foliage
+VALUE=1
+
+
+
+[ITEMDEF 031d2]
+DEFNAME=i_custom_large_foliage_p3
+TYPE=t_foliage
+VALUE=1
+
+
+
+[ITEMDEF 031d3]
+DEFNAME=i_custom_large_foliage_p4
+TYPE=t_foliage
+VALUE=1
+
+
+
+[ITEMDEF 031d4]
+// tree
+DEFNAME=i_custom_large_tree_p5
+TYPE=t_tree
+VALUE=1
+
+
+
+
+[ITEMDEF 031d5]
+// tree
+DEFNAME=i_custom_large_tree_p6
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031d6]
+// tree
+DEFNAME=i_custom_large_tree_p7
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031d7]
+// tree
+DEFNAME=i_custom_large_tree_p8
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031d8]
+// tree
+DEFNAME=i_custom_large_tree_p9
+TYPE=t_tree
+VALUE=1
+
+
+
+[ITEMDEF 031dc]
+DEFNAME=i_custom_large_foliage_p5
+TYPE=t_foliage
+VALUE=1
+
+
+
+
+[ITEMDEF 031d9]
+DEFNAME=i_custom_large_foliage_p6
+TYPE=t_foliage
+VALUE=1
+
+
+
+[ITEMDEF 031da]
+DEFNAME=i_custom_large_foliage_p7
+TYPE=t_foliage
+VALUE=1
+
+
+
+[ITEMDEF 031db]
+DEFNAME=i_custom_large_foliage_p8
+TYPE=t_foliage
+VALUE=1
+
+
+
+[EOF]
