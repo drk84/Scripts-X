@@ -1,0 +1,130 @@
+
+//ARGN1: Skill
+//ARGN2: Skill Modifiers, can be positive or negative.
+//ARGN3: Defence, is this a defence roll of sort?
+//Return: The check result
+[FUNCTION h_skillCheck]
+local.skill.roll = <R1,50> + <R1,50>
+local.skill.critical = <def0.combat_critic>
+local.skill.fumble = <def0.combat_fumble>
+//Calculating Skill Values
+if !<argn3>
+    local.skill.value = <eval <skilladjusted.<argn1>>> / 10
+else
+    local.skill.value = <def0.combat_base_defence> + <eval <skilladjusted.<argn1>>> / 20
+endif
+local.skill.mod = <argn2>
+local.skill.total = <local.skill.value> + <local.skill.mod>
+//Assign critical and fumble ranges, we can make a formula about this.
+if <local.skill.total> >= 80
+    local.skill.critical = <def0.combat_critic_high>
+    local.skill.fumble = <def0.combat_fumble_high>
+endif
+//The roll
+serv.log  Rolling for <name>: <dlocal.skill.roll> VS <dlocal.skill.total>(Base: <dlocal.skill.value> / Mods: <dlocal.skill.mod>)
+if <local.skill.roll> <= <local.skill.critical>
+    return 2
+elseif <local.skill.roll> <= <local.skill.total>
+    return 1
+elseif <local.skill.roll> >= <local.skill.fumble>
+    return -1
+else
+    return 0
+endif
+
+
+[FUNCTION h_skillcheck_rq]
+local.skill.roll = <R1,100>
+local.skill.value = <eval <skilladjusted.<argn1>>> / 10
+local.skill.critical = <local.skill.value> / 20
+local.skill.special = <local.skill.value> / 5
+local.skill.fumble = 99
+local.skill.modifiers = <argn2>
+local.skill.total = <local.skill.value> + <local.skill.modifiers>
+serv.log Rolling <qval <argn3> ? Defence : Attack> for <name>: <dlocal.skill.roll> VS <dlocal.skill.total>(Base: <dlocal.skill.value> / Mods: <dlocal.skill.modifiers>)
+
+if <local.skill.roll> <= <local.skill.critical>
+    return 3
+elseif <local.skill.roll> <= <local.skill.special>
+    return 2
+elseif <local.skill.roll> <= <local.skill.total>
+    return 1
+elseif <local.skill.roll> <= <local.skill.fumble>
+    return 0
+else
+    return -1
+endif
+
+//ARGN1: Current damage flags
+//Return: The damage flags
+[FUNCTION h_set_damage_flags]
+local.damageFlags = <argn1>|dam_fixed
+if <damfire>
+    local.damageFlags |= dam_fire
+endif
+if <damcold>
+    local.damageFlags |= dam_cold
+endif
+if <dampoison>
+    local.damageFlags |= dam_poison
+endif
+if <damenergy>
+    local.damageFlags |= dam_energy
+endif
+return <local.damageFlags>
+
+//argn1 the raw damage value
+//argn2 the % damage
+//argn3 the resistance value
+//Return: The calculated damage
+[FUNCTION h_damage_calculation]
+local.damage.raw = <muldiv <argn1>, <argn2>, 100>
+if <local.damage.raw> <= 0
+    return 0
+endif
+local.damage.reduction = <h_damage_reduction <argn3>>
+local.damage.final = <eval max 0, <local.damage.raw> - <local.damage.reduction>>
+if <src.isplayer>
+    src.SysMessage You cause <dlocal.damage.final> (<dlocal.damage.raw>) damage after reduction.
+endif
+if <isplayer>
+    SysMessage You get <dlocal.damage.final> (<dlocal.damage.raw>) damage after reduction.
+endif
+return <local.damage.final>
+
+//argn1 resistance value
+[FUNCTION h_damage_reduction]
+if <argn1> <= 0
+    return 0
+endif
+local.roll = <R1,6>
+local.armor.reduction =  <argn1> / 6 
+local.armor.remainder= <argn1> % 6
+if ( <local.roll> <= <local.armor.remainder> ) //tenere il remainder anche per skill check, interessante
+    local.armor.reduction += 1
+endif
+return <local.armor.reduction>
+
+//Return: The Attack skill ID
+[FUNCTION h_getAttackSkill]
+return <qval <weapon> ? <weapon.skill> : 43>
+
+//Return: The defence skill ID, 5 is parrying, 43 wrestling
+[FUNCTION h_getDefenceSkill]
+if (<flags>&statf_hasshield)
+    return 5
+endif
+return <qval <weapon> ? <weapon.skill> : 43>
+
+
+[FUNCTION h_clearCombatTags]
+tag.combat.result =
+tag.attack.result = 
+ 
+//ARGS: Various paramaters
+[FUNCTION h_combat_log]
+serv.log <argv0> for <name>() : Result:<dargv1> Atk/Def Mod: <dargv2> - Atk/Def TagMod: <dargv3>
+if <argv4>
+    serv.log Combat result for <name>() : <dargv5>
+endif
+

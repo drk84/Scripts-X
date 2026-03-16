@@ -1,0 +1,53 @@
+
+[ITEMDEF i_test_tile]
+ID=01826
+NAME=Healing tile
+TYPE=0
+
+on=@dclick
+  timer = 2
+  return 1 
+
+on=@timer
+  return 1
+  
+[ITEMDEF i_test_club]
+ID=i_club
+Name = Test club
+
+ON=@Create
+    hitpoints = 100
+    color = colors_red
+    damfire = 50
+
+[ITEMDEF i_test_sword]
+ID=i_sword_long
+Name = Test swords
+DAM=2,9
+ON=@Create
+  hitpoints = 1000
+  color = colors_red
+
+[CHARDEF c_test_melee]
+id = c_zombie
+NAME=Zombie Test
+SOUND=471
+ICON=i_pet_zombie
+CAN=mt_walk
+
+DAM=3,7
+ARMOR=18
+HEIGHT=16
+
+ON=@Create
+  NPC=brain_monster
+  BLOODCOLOR=colors_green
+  STR = 65
+  DEX = 60
+  INT = 40
+  MAXHITS = 85
+
+  karma = -5000
+  wrestling = 65.0
+
+  resphysical = 12

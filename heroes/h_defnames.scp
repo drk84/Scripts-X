@@ -1,0 +1,11 @@
+[DEFNAME combat_settings]
+combat_base_defence     15  //3 for grps
+combat_fumble           90  //17 for grps 
+combat_fumble_high      95  //18 for grps
+combat_critic           10  //3 for grps
+combat_critic_middle    15  //5 for grps
+combat_critic_high      20  //6 for grps
+
+[DEFNAME combat_flags]
+combat_ParryPenalty    000000001
+combat_noParry         000000002

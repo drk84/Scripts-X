@@ -75,6 +75,8 @@ stones/guilds/
 stones/towns/
 housing/
 functions/
+heroes/h_defnames.scp
+heroes/
 
 // maps
 maps/map0/map0_starts.scp

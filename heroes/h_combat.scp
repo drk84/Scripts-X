@@ -1,0 +1,40 @@
+[ITEMDEF i_rune_parry_penalty]
+ID=09BA8
+Name = Parry Penalty
+TYPE=t_spellicon
+WEIGHT = 0
+
+[SPELL 2000]
+DEFNAME=s_parry_penalty
+NAME=Parry Penalty Debuff
+SOUND=0
+RUNES=0
+CAST_TIME=0
+RESOURCES=0
+RUNE_ITEM=i_rune_parry_penalty
+SCROLL_ITEM=0
+FLAGS=spellflag_dir_anim|spellflag_targ_char|spellflag_fx_targ|spellflag_good|spellflag_bless
+EFFECT_ID=0
+EFFECT=30
+LAYER=127
+DURATION=6.0
+MANAUSE=0
+SKILLREQ=0
+INTERRUPT=0
+
+ON=@Effect
+if <tag0.combat.flags>&<def0.combat_ParryPenalty>
+    say oh
+    tag0.combat.parryPenalty += <local.effect>
+else
+    tag0.combat.parryPenalty = <local.effect>
+endif
+ON=@EffectAdd
+tag0.combat.flags |= <def0.combat_ParryPenalty>
+argo.morey = <tag0.combat.parryPenalty>
+increasedefchance -= <argo.morey>
+
+
+ON=@EffectRemove
+increasedefchance += <argo.morey>
+tag0.combat.flags &= ~<def0.combat_ParryPenalty>
