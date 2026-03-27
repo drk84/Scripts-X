@@ -1,84 +1,14 @@
-[EVENTS he_combat]
-
-ON=@HitTry
-actdiff = -10
-serv.log ----START OF ROUND FOR <name>()  ----
-local.attack.mod = <increasehitchance> + <tag0.attack.mod>
-local.attack.skillID = <h_getAttackSkill>
-tag.attack.result = <h_skillcheck_rq <local.attack.skillID>,<local.attack.mod>>
-if <tag0.attack.result> > 0
-    actdiff = 10
-endif
-h_combat_log HitTry, <dtag0.attack.result>, <increasehitchance>, <dtag0.attack.mod>
-
-ON=@HitParry
-local.parryChance = 100
-local.parryskillID = <h_getDefenceSkill>
-local.defence.mod = <increasedefchance> + <tag0.defence.mod>
-local.defence.result = <h_skillcheck_rq <local.parryskillID>, <local.defence.mod>, 1>
-src.tag0.combat.result = <src.tag0.attack.result> - <local.defence.result>  
-h_combat_log HitParry, <dlocal.defence.result>, <increasedefchance>, <dtag0.defence.mod>, 1,<src.dtag0.combat.result>
-if <src.tag0.combat.result> > 0
-    local.parryChance = 0
-elseif <tag0.combat.flags>&<def0.combat_ParryPenalty>
-    spelleffect 2000,1000,<uid>
-    src.h_clearCombatTags
-    serv.log ---- PARRY: END OF ROUND FOR <name>()  ----
+[EVENTS he_general]
+ON=@SkillStart
+if <serv.skill.<argn1>.flags>&skf_fight
+    say Starting combat for <name>
 else
-    spelleffect 2000,1000,<uid>
-    src.h_clearCombatTags
-    serv.log ---- PARRY: END OF ROUND FOR <name>()  ---- //Tutto questo va in skillusequick/Usequick
+    local.skillValue = <dskilladjusted.<argn1>> / 10
+    serv.log Starting <serv.skill.<argn1>.name> with:
 endif
 
-ON=@skillusequick
-serv.log <name> <serv.skill.<argn1>.name> <argn2> <argn3>
+ON=@SkillAbort
+say abort
 
 
-
-ON=@HitMiss
-if <tag0.combat.result> == -1
-    serv.log Fumble for <name>
-endif
-h_clearCombatTags
-serv.log ---- MISS: END OF ROUND FOR <name>()  ----
-
-ON=@Hit
-argn2 = <h_set_damage_flags <argn2>>
-
-
-ON=@GetHit
-
-if <argn2>&dam_fire
-    local.damfire = <h_damage_calculation <argn1>, <local.damagePercentFire>, <resfire>>
-endif
-
-if <argn2>&dam_cold
-    local.damcold = <h_damage_calculation <argn1>, <local.damagePercentCold>, <rescold>>
-endif
-
-if <argn2>&dam_poison
-    local.dampoison = <h_damage_calculation <argn1>, <local.damagePercentPoison>, <respoison>>
-endif
-
-if <argn2>&dam_energy
-    local.damenergy = <h_damage_calculation <argn1>, <local.damagePercentEnergy>, <resenergy>>
-endif
-
-if <argn2>&dam_physical
-    local.damagePercentPhysical = 100 - <local.damagePercentFire> - <local.damagePercentCold> - <local.damagePercentPoison> - <local.damagePercentEnergy> 
-    local.damphysical = <h_damage_calculation <argn1>, <local.damagePercentPhysical>, <resphysical>>
-endif
-
-argn1 = <local.damphysical> + <local.damfire> + <local.damcold> + <local.dampoison> + <local.damenergy>
-
-if ( <argn1> > 0 ) // here we apply damage effects, afflictions and  the like.
-    if <argn2>&dam_slash
-    endif
-
-    if <argn2>&dam_pierce
-    endif
-endif
-h_clearCombatTags
-serv.log ---- GETHIT: END OF ROUND FOR <name>()  ----
-
-
+ON=@SkillUseQuick

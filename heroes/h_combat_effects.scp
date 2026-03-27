@@ -1,0 +1,119 @@
+[COMMENT Combat Effects]
+Some of these effects are caused by combat critical and superior strikes.
+The defence fatigue effect is caused by a succesfull defence, and it's cumulative.
+MOREX: The Spell ID - MOREY: The Spell Effect Power  - MORE2: The remaining charges
+
+[ITEMDEF i_rune_effect_defence_fatigue]
+ID=i_masteryicon_30
+Name = Parry Fatigue Effect
+TYPE=t_spellicon
+WEIGHT = 0
+
+[FUNCTION h_applyDefenceFatigue]
+if <tag0.status>&<def0.status_defencefatigue>
+    ref1 = <findlayer.127>
+    local.effect = <serv.spell.s_effect_defence_fatigue.effect>
+    ref1.timer = <serv.spell.s_effect_defence_fatigue.duration> / 10
+    ref1.morey += <local.effect>
+    increasedefchance -= <local.effect>
+else
+    spelleffect s_effect_defence_fatigue,0,<uid>
+endif
+
+[SPELL 2000]
+DEFNAME=s_effect_defence_fatigue
+NAME=Defence Fatigue Debuff
+SOUND=0
+RUNES=0
+CAST_TIME=0
+RESOURCES=0
+RUNE_ITEM=i_rune_effect_defence_fatigue
+SCROLL_ITEM=0
+FLAGS=spellflag_tick
+EFFECT_ID=0
+EFFECT=30
+LAYER=127
+DURATION=5.0
+MANAUSE=0
+SKILLREQ=0
+INTERRUPT=0
+
+ON=@EffectAdd
+tag0.status |= <def0.status_defencefatigue>
+increasedefchance -= <argo.morey>
+
+
+//Da rimuovere anche in death.
+ON=@EffectRemove
+tag0.status &= ~<def0.status_defencefatigue>
+increasedefchance += <argo.morey>
+
+[ITEMDEF i_rune_effect_bleed]
+ID=i_dagger
+NAME = Bleed Effect
+TYPE = t_spellicon
+WEIGHT = 0
+
+
+[SPELL 2001]
+DEFNAME=s_status_bleeding
+NAME= Bleeding
+SOUND=0
+RUNES=0
+CAST_TIME=0
+RESOURCES=0
+RUNE_ITEM=i_rune_effect_bleed
+SCROLL_ITEM=0
+FLAGS=spellflag_harm|spellflag_tick|spellflag_damage
+EFFECT_ID=0
+EFFECT=5
+LAYER=127
+DURATION=duration_bleed
+MANAUSE=0
+SKILLREQ=0
+INTERRUPT=0
+
+ON=@EffectAdd
+tag0.status |= <def0.status_bleeding>
+argo.more2 = 5
+
+ON=@EffectTick
+local.skillValue = <dskilladjusted.focus>/10
+if <skillusequick focus, <local.skillValue>, 1, 1>
+    serv.log Your endurance reduce the bleeding...
+    local.charges -= 1
+endif
+local.effect = <serv.spell.<argn1>.effect>
+local.damagetype = dam_god|dam_physical //mandatory to set a flag...
+
+
+ON=@EffectRemove
+say removing bleeding
+tag0.status &= ~<def0.status_bleeding>
+
+
+[ITEMDEF i_rune_effect_stun]
+ID=i_club
+NAME = Stun Effect
+TYPE = t_spellicon
+WEIGHT = 0
+
+[SPELL 2002]
+DEFNAME=s_status_stunned
+NAME = Stunned
+SOUND=0
+RUNES=0
+CAST_TIME=0
+RESOURCES=0
+RUNE_ITEM=i_rune_effect_stun
+SCROLL_ITEM=0
+FLAGS=spellflag_harm
+EFFECT_ID=0
+EFFECT=0
+LAYER=127
+DURATION=duration_stun
+MANAUSE=0
+SKILLREQ=0
+INTERRUPT=0
+
+[EOF]

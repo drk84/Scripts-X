@@ -1,11 +1,30 @@
-[DEFNAME combat_settings]
-combat_base_defence     15  //3 for grps
-combat_fumble           90  //17 for grps 
-combat_fumble_high      95  //18 for grps
-combat_critic           10  //3 for grps
-combat_critic_middle    15  //5 for grps
-combat_critic_high      20  //6 for grps
+[DEFNAME skill_result]
+result_fumble   -1
+result_fail      0
+result_success   1
+result_superior  2
+result_critical  3
 
-[DEFNAME combat_flags]
-combat_ParryPenalty    000000001
-combat_noParry         000000002
+[DEFNAME skill_settings]
+skill_fumble          99 //If the Skill Roll is equal or bigger than this number, we get a fumble.
+
+[DEFNAME spell_to_status]
+spell_s_effect_defence_fatigue    status_defencefatigue
+spell_s_effect_bleed              status_bleeding
+spell_s_effect_stunned            status_stunned
+
+
+[DEFNAME status_duration]
+duration_bleed              5.0
+duration_stun               5.0
+duration_defencefatigue     5.0
+
+[DEFNAME status_flags]
+status_bleeding             000000001
+status_defencefatigue       000000002
+status_paralyzed            000000004
+status_stunned              000000008
+
+
+
+[EOF]

@@ -1,0 +1,24 @@
+
+//ARGN1: The Skill Total Value
+//Return: The check result
+[FUNCTION h_skillCheck]
+local.roll = <R1,100>
+serv.log Roll for <name>: <dlocal.roll>
+if <local.roll> >= <def0.skill_fumble>
+    return <def0.result_fumble>
+endif
+local.value = <argn1>
+local.critical = <local.value> / 10
+local.superior = <local.value> / 5
+if <local.roll> <= <local.critical>
+    return <def0.result_critical>
+elseif <local.roll> <= <local.superior>
+    return <def0.result_superior>
+elseif <local.roll> <= <local.value>
+    return <def0.result_success>
+else
+    return <def0.result_fail>
+endif
+
+
+[EOF]

@@ -15,12 +15,24 @@ STAT_DEX=15
 STAT_INT=70
 BONUS_STR=0
 BONUS_DEX=0
-BONUS_INT=100
-BONUS_STATS=50
+BONUS_INT=200
+BONUS_STATS=100
 ADV_RATE=2.5,50.0,200.0
 
+ON=@Start
+local.skillLevel = 0
+serv.log Difficulty Level: <dlocal.skillLevel>
+local.skillTotal = <local.skillValue> + <tag0.skillMod> - <local.skillLevel>
+serv.log Skill Total: <dlocal.skillTotal>% (Value: <dlocal.skillValue> / Mods: <dtag0.skillMod> / Difficulty: <dlocal.skillLevel>)
+tag.skillResult = <h_skillCheck <local.skillTotal>>
+if <tag0.skillResult> > 0
+	actdiff = 0
+else
+	actdiff = 9999
+endif
+
 ON=@Fail
-	SRC.SYSMESSAGE You can't think of anything about this creature
+	SRC.SYSMESSAGE You can't think of anything about this creature.
 
 ON=@Abort
 	SRC.SYSMESSAGE You fail to examine the creature fully.

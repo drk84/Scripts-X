@@ -1,0 +1,103 @@
+
+[FUNCTION h_applyDamageFromCombatResult]
+if <tag0.attackResult> >= <def0.result_critical>
+    serv.log Critical for <name>:
+    return <damadjusted.hi>
+elseif <tag0.attackResult> == <def0.result_superior>
+    serv.log Superior for <name>
+    return <argn1>
+else
+    return <argn1>
+endif
+
+//ARGN1: The Skill Id used for defence.
+//Return: 1 if the character can parry, 0 otherwise
+[FUNCTION h_canParry]
+if <argn1> > -1 //Additional checks like stunned etc.-
+    return 1
+endif
+return 0
+
+[FUNCTION h_canParryRangedAttack]
+if !(<flags>&statf_hasshield) && (<ninjitsu> < 600>)
+    return 0
+endif
+return 1
+
+[FUNCTION h_getParrySkillAgainstRanged]
+if <flags>&statf_hasshield
+    return 5
+elseif (<ninjitsu> >= 600) && (<weapon>)
+    return 53   
+elseif (<wrestling> >= 900) && !(<weapon>)
+    return 43
+endif
+return -1
+
+[FUNCTION h_getParrySkillAgainstMelee]
+if <flags>&statf_hasshield
+    return 5
+elseif <weapon>
+    return <weapon.skill>
+else
+    return 43
+endif
+return -1
+
+[FUNCTION h_clearCombatTags]
+tag.attackResult =  
+
+[FUNCTION h_isRangedAttack]
+return <serv.skill.<action>.flags>&skf_ranged
+
+//ARGN1: Current damage flags
+//Return: The damage flags
+[FUNCTION h_setCombatDamageFlags]
+argn1 |= dam_fixed
+if <damfire>
+    argn1 |= dam_fire
+endif
+if <damcold>
+    argn1 |= dam_cold
+endif
+if <dampoison>
+    argn1 |= dam_poison
+endif
+if <damenergy>
+    argn1 |= dam_energy
+endif
+return <argn1>
+
+//argn1 the raw damage value
+//argn2 the % damage
+//argn3 the resistance value
+//Return: The calculated damage
+[FUNCTION h_damageCalculation]
+local.damage.raw = <muldiv <argn1>, <argn2>, 100>
+if <local.damage.raw> <= 0
+    return 0
+endif
+local.damage.reduction = <h_damageReduction <argn3>>
+local.damage.final = <eval max 0, <local.damage.raw> - <local.damage.reduction>>
+if <src.isplayer>
+    src.sysmessage You cause <dlocal.damage.final> (<dlocal.damage.raw>) damage after reduction.
+endif
+if <isplayer>
+    sysmessage You get <dlocal.damage.final> (<dlocal.damage.raw>) damage after reduction.
+endif
+return <local.damage.final>
+
+//argn1 resistance value
+[FUNCTION h_damageReduction]
+if <argn1> <= 0
+    return 0
+endif
+local.roll = <R1,6>
+local.armor.reduction =  <argn1> / 6 
+local.armor.remainder= <argn1> % 6
+if ( <local.roll> <= <local.armor.remainder> ) //tenere il remainder anche per skill check, interessante
+    local.armor.reduction += 1
+endif
+return <local.armor.reduction>
+
+[EOF]
