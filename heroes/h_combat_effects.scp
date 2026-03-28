@@ -8,6 +8,7 @@ ID=i_masteryicon_30
 Name = Parry Fatigue Effect
 TYPE=t_spellicon
 WEIGHT = 0
+tag.debuff = debuff_defencefatigue
 
 [FUNCTION h_applyDefenceFatigue]
 if <tag0.status>&<def0.status_defencefatigue>
@@ -29,7 +30,8 @@ CAST_TIME=0
 RESOURCES=0
 RUNE_ITEM=i_rune_effect_defence_fatigue
 SCROLL_ITEM=0
-FLAGS=spellflag_tick
+FLAGS=spellflag_harm|spellflag_tick
+GROUP=spellgroup_debuff
 EFFECT_ID=0
 EFFECT=30
 LAYER=127
@@ -48,23 +50,24 @@ ON=@EffectRemove
 tag0.status &= ~<def0.status_defencefatigue>
 increasedefchance += <argo.morey>
 
-[ITEMDEF i_rune_effect_bleed]
+[ITEMDEF i_rune_debuff_bleed]
 ID=i_dagger
-NAME = Bleed Effect
+NAME = Bleed Debuff
 TYPE = t_spellicon
 WEIGHT = 0
-
+tag.debuff = debuff_bleeding
 
 [SPELL 2001]
-DEFNAME=s_status_bleeding
+DEFNAME=s_debuff_bleeding
 NAME= Bleeding
 SOUND=0
 RUNES=0
 CAST_TIME=0
 RESOURCES=0
-RUNE_ITEM=i_rune_effect_bleed
+RUNE_ITEM=i_rune_debuff_bleed
 SCROLL_ITEM=0
 FLAGS=spellflag_harm|spellflag_tick|spellflag_damage
+GROUP=spellgroup_debuff
 EFFECT_ID=0
 EFFECT=5
 LAYER=127
@@ -73,9 +76,12 @@ MANAUSE=0
 SKILLREQ=0
 INTERRUPT=0
 
+
+ON=@Effect
+//LOCAL.DAMAGETYPE=(<DEF.dam_fire>|<DEF.dam_magic>) needed to do damage in effect, perfect.
+
 ON=@EffectAdd
-tag0.status |= <def0.status_bleeding>
-argo.more2 = 5
+argo.more2 = 5 //da cambiare in set charges tipo
 
 ON=@EffectTick
 local.skillValue = <dskilladjusted.focus>/10
@@ -84,30 +90,29 @@ if <skillusequick focus, <local.skillValue>, 1, 1>
     local.charges -= 1
 endif
 local.effect = <serv.spell.<argn1>.effect>
-local.damagetype = dam_god|dam_physical //mandatory to set a flag...
+local.damagetype = dam_god|dam_physical 
 
 
-ON=@EffectRemove
-say removing bleeding
-tag0.status &= ~<def0.status_bleeding>
 
 
-[ITEMDEF i_rune_effect_stun]
+[ITEMDEF i_rune_debuff_stunned]
 ID=i_club
 NAME = Stun Effect
 TYPE = t_spellicon
 WEIGHT = 0
+tag.debuff = debuff_stunned
 
 [SPELL 2002]
-DEFNAME=s_status_stunned
-NAME = Stunned
+DEFNAME=s_debuff_stunned
+NAME = Stunned Debuff
 SOUND=0
 RUNES=0
 CAST_TIME=0
 RESOURCES=0
-RUNE_ITEM=i_rune_effect_stun
+RUNE_ITEM=i_rune_debuff_stunned
 SCROLL_ITEM=0
 FLAGS=spellflag_harm
+GROUP=spellgroup_debuff
 EFFECT_ID=0
 EFFECT=0
 LAYER=127

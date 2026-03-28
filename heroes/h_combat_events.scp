@@ -4,24 +4,21 @@
 ON=@HitTry
 h_clearCombatTags
 argn1 = 20 //Weapon ready calculation
-actdiff = -10
 
-local.weaponSkillId = <qval <weapon> ? <weapon.skill> : 43>
+local.weaponSkillId = <qval <weapon> ? <weapon.skill> : 43>//can be changed with <action>
 local.attackValue = <dskilladjusted.<local.weaponSkillId>> / 10
 local.attackTotal = <local.attackValue> + <tag0.attackMod> + <increasehitchance> 
 tag.attackResult = <h_skillCheck <local.attackTotal>>
 actdiff = <qval <tag0.attackResult> > 0 ? 10 : - 10 >
 
-//ARGN1: Damage absorbed by the parry
-//ARGN2: Damage Type
+//ARGN1: Damage absorbed by the parry, we set it to 0, because we need to override the parry damage reduction.
+//ARGN2: Damage Type.
 ON=@HitParry
-argn1 = 0 //We set it to 0, because we need to override the parry damage reduction.
-local.parryChance = 0
+argn1 = 0
 local.parrySkillId  = -1 //No parry skill set by default, that means we can't parry
-
 local.parrySkillId = <qval <src.h_isRangedAttack> ? <h_getParrySkillAgainstRanged> : <h_getParrySkillAgainstMelee>>
-say <dlocal.parrySkillId>
 argn2 = <src.h_setCombatDamageFlags <argn2>>
+
 if <h_canParry <local.parrySkillId>>
     local.parryValue = <dskilladjusted.<local.parrySkillId>> / 10
     local.parryTotal = <local.parryValue> + <tag0.defenceMod> + <increasedefchance>
@@ -42,16 +39,11 @@ if <h_canParry <local.parrySkillId>>
     else    //Need additional cheks for Superior Parry and Critical Parry
         local.parryChance = 100
         local.parryDamageReduction = <qval <argo> ? <argo.hitpoints> : <local.parryValue> / 10>
-        serv.log Full Damage: <dlocal.damage> / Parried damage: <dlocal.parryDamageReduction>
         local.damage = <eval max 0, <local.damage> - <local.parryDamageReduction>>
-        serv.log Remaining Damage: <dlocal.damage>
+        local.itemParryDamageChance = <qval <local.damage> ? 100 : 0>
         if !<src.tag0.attackResult> 
             h_applyDefenceFatigue
-        else
-            say no parry Fatigue for <name>
         endif
-        //Rework the parrying item damage part too..
-        local.itemParryDamageChance = <qval <local.damage> ? 100 : 0>
     endif
 else
     src.sysmessage @50 <name> can't parry your strike!
@@ -95,7 +87,7 @@ endif
 
 argn1 = <local.damphysical> + <local.damfire> + <local.damcold> + <local.dampoison> + <local.damenergy>
 
-if ( <argn1> > 0 ) // here we apply damage effects, afflictions and  the like.
+if  <argn1> > 0  // here we apply damage effects, afflictions and  the like.
  
 endif
 

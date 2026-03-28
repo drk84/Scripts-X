@@ -19,12 +19,41 @@ duration_bleed              5.0
 duration_stun               5.0
 duration_defencefatigue     5.0
 
-[DEFNAME status_flags]
-status_bleeding             000000001
-status_defencefatigue       000000002
-status_paralyzed            000000004
-status_stunned              000000008
+[DEFNAME buff_flags]
+buff_battle_frenzy          000000001
+buff_swashbuckling          000000002
+buff_nightsight             000000004
+buff_reactive               000000008
+buff_strong                 000000010
+buff_agile                  000000020
+buff_cunning                000000040
+buff_bless                  000000080
+buff_protection             000000100
+buff_incognito              000000200
+buff_reflection             000000400
+buff_invisible              000000800
+buff_polymorph              000001000
+buff_attuned                000002000
+buff_empowered              000004000
 
+[DEFNAME debuff_flags]
+debuff_bleeding             000000001
+debuff_defencefatigue       000000002
+debuff_paralyze             000000004
+debuff_stunned              000000008
+debuff_weakened             000000010
+debuff_clumsy               000000020
+debuff_feeble               000000040
+debuff_curse                000000080
+debuff_poison               000000100
+debuff_drunk                000000200
+debuff_hallucination        000000400
+debuff_petrified            000000800
+debuff_sleep                000001000
+
+[DEFNAME spellgroup_flags]
+spellgroup_buff             000000001
+spellgroup_debuff           000000002
 
 
 [EOF]

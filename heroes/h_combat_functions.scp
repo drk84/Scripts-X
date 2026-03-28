@@ -74,11 +74,20 @@ return <argn1>
 //Return: The calculated damage
 [FUNCTION h_damageCalculation]
 local.damage.raw = <muldiv <argn1>, <argn2>, 100>
+
 if <local.damage.raw> <= 0
     return 0
+elseif !<argn3> 
+    return <local.damage.raw>
 endif
-local.damage.reduction = <h_damageReduction <argn3>>
-local.damage.final = <eval max 0, <local.damage.raw> - <local.damage.reduction>>
+
+local.roll = <R1,6>
+local.armor.reduction = <argn3> / 6
+local.armor.remainder = <argn3> % 6
+if <local.roll> <= <local.armor.remainder>
+    local.armor.reduction += 1
+endif
+local.damage.final = <eval max 0, <local.damage.raw> - <local.armor.reduction>>
 if <src.isplayer>
     src.sysmessage You cause <dlocal.damage.final> (<dlocal.damage.raw>) damage after reduction.
 endif
@@ -87,17 +96,5 @@ if <isplayer>
 endif
 return <local.damage.final>
 
-//argn1 resistance value
-[FUNCTION h_damageReduction]
-if <argn1> <= 0
-    return 0
-endif
-local.roll = <R1,6>
-local.armor.reduction =  <argn1> / 6 
-local.armor.remainder= <argn1> % 6
-if ( <local.roll> <= <local.armor.remainder> ) //tenere il remainder anche per skill check, interessante
-    local.armor.reduction += 1
-endif
-return <local.armor.reduction>
 
 [EOF]

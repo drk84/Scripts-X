@@ -11,15 +11,6 @@ else
     tag0.status |= <local.status>
 endif
 
-//Args: the status flag
-[FUNCTION h_setStatusEffect]
-tag0.status |= <args>
-spelleffect 
-//Args: the status flag
-[FUNCTION h_getStatuseffect]
-return <tag0.status>&<args>
 
-//Args: the status flag
-[FUNCTION h_removeStatusEffect]
-tag0.status &= ~<args>
+
 [EOF]

@@ -12,3 +12,22 @@ say abort
 
 
 ON=@SkillUseQuick
+
+ON=@SpellEffect
+
+
+ON=@SpellEffectAdd
+local.spellGroup = <serv.spell.<argn1>.group>
+if <local.spellGroup> & <def0.spellgroup_buff>
+    tag0.buff |= <argo.tag0.buff>
+elseif <local.spellGroup> & <def0.spellgroup_debuff>
+    tag0.debuff |=  <argo.tag0.debuff>
+endif
+
+ON=@SpellEffectRemove
+local.spellGroup = <serv.spell.<argn1>.group>
+if <local.spellGroup> & <def0.spellgroup_buff>
+    tag0.buff &= ~<argo.tag0.buff>
+elseif <local.spellGroup> & <def0.spellgroup_debuff>
+    tag0.debuff &= ~<argo.tag0.debuff>
+endif
